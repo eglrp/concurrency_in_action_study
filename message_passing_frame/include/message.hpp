@@ -1,5 +1,5 @@
-#ifndef MESSAGE_CPP
-#define MESSAGE_CPP 
+#ifndef MESSAGE
+#define MESSAGE
 #include <condition_variable>
 #include <memory>
 #include <mutex>
@@ -46,4 +46,4 @@ class Queue {
 };
 
 } // namespace messaging
-#endif /* ifndef MESSAGE_CPP */
+#endif /* ifndef MESSAGE */

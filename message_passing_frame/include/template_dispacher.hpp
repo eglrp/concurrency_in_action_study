@@ -1,4 +1,6 @@
-#include "message.cpp"
+#ifndef TEMPLATE_DISPACHER
+#define TEMPLATE_DISPACHER 
+#include "message.hpp"
 namespace messaging {
 template <typename PreviousDispatcher, typename Msg, typename Func>
 class TemplateDispatcher {
@@ -64,3 +66,4 @@ class TemplateDispatcher {
     }
 };
 } // namespace messaging
+#endif /* ifndef TEMPLATE_DISPACHER */

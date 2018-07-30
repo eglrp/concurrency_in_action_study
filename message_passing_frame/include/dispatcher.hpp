@@ -1,7 +1,7 @@
-#ifndef MESSAGE
-#define MESSAGE
-#include "message.cpp"
-#include "template_dispacher.cpp"
+#ifndef DISPATCHER
+#define DISPATCHER
+#include "message.hpp"
+#include "template_dispacher.hpp"
 namespace messaging {
 class CloseQueue {};
 class Dispatcher {
@@ -53,4 +53,4 @@ class Dispatcher {
     }
 };
 } // namespace messaging
-#endif /* ifndef MESSAGE */
+#endif /* ifndef DISPATCHER */

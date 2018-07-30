@@ -1,7 +1,9 @@
+#ifndef ATM
+#define ATM
 #include <iostream>
-#include "atm_msg.cpp"
-#include "receiver.cpp"
-#include "sender.cpp"
+#include "atm_msg.hpp"
+#include "receiver.hpp"
+#include "sender.hpp"
 
 class Atm {
     messaging::Receiver incoming;
@@ -144,3 +146,4 @@ class Atm {
         return incoming;
     }
 };
+#endif /* ifndef ATM */

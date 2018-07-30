@@ -1,6 +1,6 @@
 #ifndef SENDER
 #define SENDER 
-#include "message.cpp"
+#include "message.hpp"
 namespace messaging {
 class Sender {
     Queue *queue_;

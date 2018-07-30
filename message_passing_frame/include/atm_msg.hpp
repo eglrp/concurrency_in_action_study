@@ -1,7 +1,7 @@
 #ifndef ATM_MSG
 #define ATM_MSG 
-#include "message.cpp"
-#include "sender.cpp"
+#include "message.hpp"
+#include "sender.hpp"
 
 // 定义消息类型及结构, 消息通过队列在线程传递
 

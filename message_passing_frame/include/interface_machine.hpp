@@ -1,5 +1,7 @@
-#include "atm_msg.cpp"
-#include "receiver.cpp"
+#ifndef INTERFACE_MACHINE
+#define INTERFACE_MACHINE
+#include "atm_msg.hpp"
+#include "receiver.hpp"
 #include <iostream>
 class InterfaceMachine {
     messaging::Receiver incoming_;
@@ -71,3 +73,4 @@ class InterfaceMachine {
         }
     }
 };
+#endif /* ifndef INTERFACE_MACHINE */

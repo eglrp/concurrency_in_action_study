@@ -1,8 +1,8 @@
 #ifndef RECEIVER
 #define RECEIVER 
-#include "dispatcher.cpp"
-#include "message.cpp"
-#include "sender.cpp"
+#include "dispatcher.hpp"
+#include "message.hpp"
+#include "sender.hpp"
 namespace messaging {
 class Receiver {
     // 非指针

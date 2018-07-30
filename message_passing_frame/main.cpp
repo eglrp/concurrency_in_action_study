@@ -1,6 +1,6 @@
-#include "atm.cpp"
-#include "bank_machine.cpp"
-#include "interface_machine.cpp"
+#include "include/atm.hpp"
+#include "include/bank_machine.hpp"
+#include "include/interface_machine.hpp"
 #include <iostream>
 #include <thread>
 using namespace std;

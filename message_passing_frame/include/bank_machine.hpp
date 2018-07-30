@@ -1,6 +1,7 @@
-#include "receiver.cpp"
-// #include "sen"
-#include "atm_msg.cpp"
+#ifndef BANK_MACHINE
+#define BANK_MACHINE
+#include "receiver.hpp"
+#include "atm_msg.hpp"
 class BankMachine {
     messaging::Receiver incoming_;
     unsigned balance_;
@@ -49,3 +50,4 @@ class BankMachine {
 		return incoming_;
 	}
 };
+#endif /* ifndef BANK_MACHINE */
