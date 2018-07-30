@@ -1,0 +1,6 @@
+/* vim tmporary file */
+.*.swp
+.*.swo
+
+/* make cache */
+build
