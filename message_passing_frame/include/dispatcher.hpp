@@ -12,45 +12,25 @@ class Dispatcher {
     Dispatcher(Dispatcher const &) = delete;
     Dispatcher &operator=(const Dispatcher &) = delete;
 
-    template <
-        typename T_Dispatcher,
-        typename Msg,
-        typename Func>
+    template <typename T_Dispatcher, typename Msg, typename Func>
     friend class TemplateDispatcher;
 
-    void wait_and_dispatch() {
-        for(;;) {
-            auto msg = queue_->wait_and_pop();
-            dispatch(msg);
-        }
-    }
+    void wait_and_dispatch();
 
-    bool dispatch(std::shared_ptr<MessageBase> const &msg) {
-        //动态转化, 如果是WrappedMessage<CloseQueue>* 类型,则转化为该类型, 否则为空指针
-        if(dynamic_cast<WrappedMessage<CloseQueue> *>(msg.get())) {
-            throw CloseQueue();
-        }
-        return false;
-    }
+    bool dispatch(std::shared_ptr<MessageBase> const &msg);
+
 
   public:
-    Dispatcher(Dispatcher &&other) : queue_(other.queue_), chained_(other.chained_) {
-        //?? what is chained_?
-        other.chained_ = true;
-    }
+    Dispatcher(Dispatcher &&other);
 
-    explicit Dispatcher(Queue *q) : queue_(q), chained_(false) {}
+    explicit Dispatcher(Queue *q);
 
-    template <typename Msg, typename Func>
-    TemplateDispatcher<Dispatcher, Msg, Func> handle(Func &&f) {
-        return TemplateDispatcher<Dispatcher, Msg, Func>(queue_, this, std::forward<Func>(f));
-    }
+	template <typename Msg, typename Func>
+	TemplateDispatcher<Dispatcher, Msg, Func> handle(Func &&f) {
+		return TemplateDispatcher<Dispatcher, Msg, Func>(queue_, this, std::forward<Func>(f));
+	}
 
-    ~Dispatcher() noexcept(false) {
-        if(!chained_) {
-            wait_and_dispatch();
-        }
-    }
+    ~Dispatcher();
 };
 } // namespace messaging
 #endif /* ifndef DISPATCHER */

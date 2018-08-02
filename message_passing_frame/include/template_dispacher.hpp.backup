@@ -1,0 +1,45 @@
+#ifndef TEMPLATE_DISPACHER
+#define TEMPLATE_DISPACHER
+#include "message.hpp"
+namespace messaging {
+template <typename PreviousDispatcher, typename Msg, typename Func>
+class TemplateDispatcher {
+    Queue *queue_;
+    PreviousDispatcher *prev_;
+    Func f_;
+    bool chained_;
+
+    // 禁止赋值
+    TemplateDispatcher(TemplateDispatcher const &) = delete;
+    TemplateDispatcher &operator=(TemplateDispatcher const &) = delete;
+
+    //友元类(自己):是该类的不同实例可以访问其private和protected成员
+    template <typename Dispatcher, typename OtherMsg, typename OtherFunc>
+    friend class TemplateDispatcher;
+
+    //等待消息队列并弹出第一个元素,并进行消息的处理
+    void wait_and_dispatch();
+
+    //检测信息类型和当前实例的信息类型是否一样,一样则处理,否则交由prev_指针的对象处理.
+    //prev_最终指向Dispatcher对象,Dispatcher::dispatch的处理方式不一样.
+    bool dispatch(std::shared_ptr<MessageBase> const &msg);
+
+  public:
+    TemplateDispatcher(TemplateDispatcher &&other);
+    TemplateDispatcher(Queue *q, PreviousDispatcher *prev, Func &&f);
+
+    // //std::forward将rvalue转为lvalue.
+    // //该函数和上面的构造函数是实现单向消息处理链表的关键
+    template <typename OtherMsg, typename OtherFunc>
+    TemplateDispatcher<TemplateDispatcher, OtherMsg, OtherFunc> handle(OtherFunc &&other_func) {
+        return TemplateDispatcher<TemplateDispatcher, OtherMsg, OtherFunc>(
+            queue_, this, std::forward<OtherFunc>(other_func));
+	}
+    // //该析构函数是实现自动等待队列请求并处理的方式
+    ~TemplateDispatcher();
+
+    template <typename T>
+    void test(T x);
+};
+} // namespace messaging
+#endif /* ifndef TEMPLATE_DISPACHER */
